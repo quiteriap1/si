@@ -1,6 +1,6 @@
 import numpy as np
 
-from si.data.dataset import Dataset
+from si.src.si.data.dataset import Dataset
 
 
 def read_data_file(filename: str,

@@ -3,7 +3,6 @@ from typing import Tuple, Sequence
 import numpy as np
 import pandas as pd
 
-
 class Dataset:
     def __init__(self, X: np.ndarray, y: np.ndarray = None, features: Sequence[str] = None, label: str = None):
         """
@@ -125,6 +124,12 @@ class Dataset:
         }
         return pd.DataFrame.from_dict(data, orient="index", columns=self.features)
 
+    def print_dataframe(self):
+        if self.X is None:
+            return 1
+
+        return pd.DataFrame(self.X, columns=self.features, index=self.y)
+
     @classmethod
     def from_dataframe(cls, df: pd.DataFrame, label: str = None):
         """
@@ -191,3 +196,5 @@ class Dataset:
         X = np.random.rand(n_samples, n_features)
         y = np.random.randint(0, n_classes, n_samples)
         return cls(X, y, features=features, label=label)
+
+

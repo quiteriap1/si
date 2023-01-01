@@ -1,18 +1,21 @@
 # KNNRegressor - estima um valor médio dos k exemplos mais semelhantes
-
+from mimetypes import init
 from typing import Callable, Union
 
 import numpy as np
 
-from si.data.dataset import Dataset
-from si.metrics.rmse import rmse
-from si.statistics.euclidean_distance import euclidean_distance
+from si.src.si.data.dataset import Dataset
+from si.src.si.metrics.rmse import rmse
+from si.src.si.statistics.euclidean_distance import euclidean_distance
 
 
-class KNNClassifier:
+class KNNRegressor:
 
     def init(self, k:init=1, distance:callable(euclidean_distance)):
+        """
 
+        :type distance: object
+        """
         # parameters
         self.k = k
         self.distance = distance
@@ -52,7 +55,7 @@ class KNNClassifier:
 
 if __name__== "__main__":
     from src.si.read_csv import read_csv
-    dataset_= read_csv("cpu.csv",sep=",")
+    dataset_= read_csv("C:\Users\HP-PC\PycharmProjects\pythonProject2\si\datasets\cpu.csv",sep=",")
 
     knn = KNNRegressor(5)
     knn.fit(dataset_, 0.2)

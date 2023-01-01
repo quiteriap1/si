@@ -2,22 +2,12 @@ import itertools
 
 import numpy as np
 
-from si.data.dataset import Dataset
+from si.src.si.data.dataset import Dataset
 
 
-class KMer:
-    """
-    A sequence descriptor that returns the k-mer composition of the sequence.
-    Parameters
-    ----------
-    k : int
-        The k-mer length.
-    Attributes
-    ----------
-    k_mers : list of str
-        The k-mers.
-    """
-    def __init__(self, k: int = 2):
+class KMerNew:
+
+    def __init__(self, k: int = 2, alfabeto: str = 'ACTG'):
         """
         Parameters
         ----------
@@ -26,11 +16,12 @@ class KMer:
         """
         # parameters
         self.k = k
+        self.alfabeto = alfabeto
 
         # attributes
         self.k_mers = None
 
-    def fit(self, dataset: Dataset) -> 'KMer':
+    def fit(self, dataset: Dataset) -> 'KMerNew':
         """
         Fits the descriptor to the dataset.
         Parameters
@@ -43,7 +34,7 @@ class KMer:
             The fitted descriptor.
         """
         # generate the k-mers
-        self.k_mers = [''.join(k_mer) for k_mer in itertools.product('ACTG', repeat=self.k)]
+        self.k_mers = [''.join(k_mer) for k_mer in itertools.product('ACTG', repeat=self.k)] #divide de 2 em 2 pq a kmer se divide de 2 em 2 pq o professor também pediu. ex: ['AA', 'AC', 'AT']
         return self
 
     def _get_sequence_k_mer_composition(self, sequence: str) -> np.ndarray:
@@ -100,18 +91,19 @@ class KMer:
         Dataset
             The transformed dataset.
         """
-        return self.fit(dataset).transform(dataset)
+        return self.fit(dataset).transform(dataset) #aplica o fit e o transform com já tinhamos feito
 
 
 if __name__ == '__main__':
-    from si.data.dataset import Dataset
+    from si.src.si.data.dataset import Dataset
 
     dataset_ = Dataset(X=np.array([['ACTGTTTAGCGGA', 'ACTGTTTAGCGGA']]),
                        y=np.array([1, 0]),
                        features=['sequence'],
                        label='label')
 
-    k_mer_ = KMer(k=2)
-    dataset_ = k_mer_.fit_transform(dataset_)
+    k_mer_new = KMerNew(k=2, alfabeto = 'ACDHKTAC')
+    dataset_ = k_mer_new.fit_transform(dataset_)
     print(dataset_.X)
     print(dataset_.features)
+    print(str(len(dataset_.features)))

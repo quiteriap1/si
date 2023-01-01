@@ -1,7 +1,7 @@
 import numpy as np
 
-from si.data.dataset import Dataset
-from si.metrics.mse import mse
+from si.src.si.data.dataset import Dataset
+from si.src.si.metrics.mse import mse
 
 
 class RidgeRegression:
@@ -139,76 +139,11 @@ class RidgeRegression:
         y_pred = self.predict(dataset)
         return (np.sum((y_pred - dataset.y) ** 2) + (self.l2_penalty * np.sum(self.theta ** 2))) / (2 * len(dataset.y))
 
-
-if __name__ == '__main__':
-    # # import dataset
-    # from si.data.dataset import Dataset
-    #
-    # # make a linear dataset
-    # X = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])
-    # y = np.dot(X, np.array([1, 2])) + 3
-    # dataset_ = Dataset(X=X, y=y)
-    #
-    # # fit the model
-    # model = RidgeRegression()
-    # model.fit(dataset_)
-    #
-    # # get coefs
-    # print(f"Parameters: {model.theta}")
-    #
-    # # compute the score
-    # score = model.score(dataset_)
-    # print(f"Score: {score}")
-    #
-    # # compute the cost
-    # cost = model.cost(dataset_)
-    # print(f"Cost: {cost}")
-    #
-    # # predict
-    # y_pred_ = model.predict(Dataset(X=np.array([[3, 5]])))
-    # print(f"Predictions: {y_pred_}")
-
-    ####################
-    from si.data.dataset import Dataset
-    from si.model_selection.split import train_test_split
-    import pandas as pd
-    from sklearn.preprocessing import StandardScaler
-    import matplotlib.pyplot as plt
-
-    df = pd.read_csv("C:\\Users\\rutee\\OneDrive\\Ambiente de Trabalho\\sib\\si\\datasets\\cpu.csv")
-    print(df.head())
-    dataset_ = Dataset.from_dataframe(df, label='perf')
-    dataset_.X = StandardScaler().fit_transform(dataset_.X)
-
-    dataset_train, dataset_test = train_test_split(dataset_, test_size=0.25)
-
-    # fit the model
-    model = RidgeRegression(max_iter=3000)
-    model.fit(dataset_train)
-
-    # get coefs
-    print(f"Parameters: {model.theta}")
-
-    # compute the score
-    score_train = model.score(dataset_train)
-    print(f"Score train: {score_train}")
-    score_test = model.score(dataset_test)
-    print(f"Score test: {score_test}")
-
-    # compute the cost
-    cost_train = model.cost(dataset_train)
-    print(f"Cost train: {cost_train}")
-    cost_test = model.cost(dataset_test)
-    print(f"Cost test: {cost_test}")
-
-    # predict
-    y_pred_ = model.predict(dataset_test)
-    print(f"Predictions: {y_pred_}")
-
-    import matplotlib
-    matplotlib.use('TkAgg')
-
-    plt.plot(model.cost_history.values())
-    plt.ylabel("Custo")
-    plt.xlabel("Iteração")
-    plt.show()
+    def plot_cost_history(self):
+        """
+        Plots the cost history using matplotlib with x axis as number of iterations and y axis as cost value.
+        """
+        plt.plot(self.cost_history.keys(), self.cost_history.values(), "-k")
+        plt.xlabel("Iteration")
+        plt.ylabel("Cost")
+        plt.show()

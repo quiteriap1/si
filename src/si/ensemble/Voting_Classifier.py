@@ -1,7 +1,7 @@
 import numpy as np
 
-from si.data.dataset import Dataset
-from si.metrics.accuracy import accuracy
+from si.src.si.data.dataset import Dataset
+from si.src.si.metrics.accuracy import accuracy
 
 
 class VotingClassifier:

@@ -7,8 +7,8 @@ import itertools
 import numpy as np
 from typing import Callable, Tuple, Dict, List, Any
 
-from si.data.dataset import Dataset
-from si.model_selection.cross_validate import cross_validate
+from si.src.si.data.dataset import Dataset
+from si.src.si.model_selection.cross_validate import cross_validate
 
 
 def randomized_search_cv(model, dataset: Dataset, parameter_distribution: Dict[str, np.ndarray], scoring: Callable = None, cv: int = 5, n_iter: int = 10, test_size: float = 0.2) -> List[Dict[str, Any]]:

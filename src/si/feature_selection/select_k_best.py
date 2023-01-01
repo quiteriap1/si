@@ -70,6 +70,7 @@ class SelectKBest:
         features = np.array(dataset.features)[idxs]
         return Dataset(X=dataset.X[:, idxs], y=dataset.y, features=list(features), label=dataset.label)
 
+
     def fit_transform(self, dataset: Dataset) -> Dataset:
         """
         It fits SelectKBest and transforms the dataset by selecting the k highest scoring features.

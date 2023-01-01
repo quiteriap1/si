@@ -1,6 +1,6 @@
-from si.data.dataset import Dataset
+from si.src.si.data.dataset import Dataset
 import numpy as np
-from si.metrics.accuracy import accuracy
+from si.src.si.metrics.accuracy import accuracy
 
 class StackingClassifier:
 
@@ -12,7 +12,7 @@ class StackingClassifier:
         self.models = models
         self.final_model = final_model
 
-    def fit(self, dataset:Dataset): -> 'StackingClassifier'
+    def fit(self, dataset:Dataset):
 
         dataset_copy = Dataset(dataset.X, dataset.y, dataset.features, dataset.label)
         for m in self.models:
@@ -24,7 +24,7 @@ class StackingClassifier:
 
 
 
-    def predict(self, dataset:Dataset): -> np.ndarray:
+    def predict(self, dataset:Dataset):
 
         data2 = Dataset(dataset.X, dataset.y, dataset.features, dataset.label)
         for m in self.models:

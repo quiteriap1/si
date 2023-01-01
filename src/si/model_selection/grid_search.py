@@ -1,8 +1,8 @@
 import itertools
 from typing import Callable, Tuple, Dict, List, Any
 
-from si.data.dataset import Dataset
-from si.model_selection.cross_validate import cross_validate
+from si.src.si.data.dataset import Dataset
+from si.src.si.model_selection.cross_validate import cross_validate
 
 
 def grid_search_cv(model,

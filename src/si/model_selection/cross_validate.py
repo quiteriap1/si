@@ -2,8 +2,8 @@ from typing import Callable, Dict, List
 
 import numpy as np
 
-from si.data.dataset import Dataset
-from si.model_selection.split import train_test_split
+from si.src.si.data.dataset import Dataset
+from si.src.si.model_selection.split import train_test_split
 
 
 def cross_validate(model,
